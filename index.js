@@ -129,14 +129,13 @@ export default class PhotoUpload extends React.Component {
 
   render() {
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
-        <TouchableOpacity
-          onPress={this.openImagePicker}
-          disabled={this.state.buttonDisabled}
-        >
-          {this.renderChildren(this.props)}
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={[styles.container, this.props.containerStyle]}
+        onPress={this.openImagePicker}
+        disabled={this.state.buttonDisabled}
+      >
+        {this.renderChildren(this.props)}
+      </TouchableOpacity>
     )
   }
 }
