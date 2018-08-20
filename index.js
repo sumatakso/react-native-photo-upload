@@ -113,28 +113,21 @@ export default class PhotoUpload extends React.Component {
     })
   }
 
-  renderChildren = props => {
-    return React.Children.map(props.children, child => {
-      if (child.type === Image && this.state.avatarSource) {
-        return React.cloneElement(child, {
-          source: this.state.avatarSource
-        })
-      } else return child
-    })
-  }
-
   componentDidUpdate() {
     if (this.props.onAfterRender) this.props.onAfterRender(this.state)
   }
 
   render() {
+    const { renderImage, children } = this.props;
+    const { avatarSource } = this.state;
     return (
       <TouchableOpacity
         style={[styles.container, this.props.containerStyle]}
         onPress={this.openImagePicker}
         disabled={this.state.buttonDisabled}
       >
-        {this.renderChildren(this.props)}
+        {renderImage ? renderImage({source:avatarSource}) : undefined}
+        {children}
       </TouchableOpacity>
     )
   }
