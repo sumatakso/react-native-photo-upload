@@ -19,6 +19,7 @@ export default class PhotoUpload extends React.Component {
     width: PropTypes.number,
     format: PropTypes.string,
     quality: PropTypes.number,
+    customPickerOption: PropTypes.object,
     onPhotoSelect: PropTypes.func, // returns the base64 string of uploaded photo
     onError: PropTypes.func, // if any error occur with response
     onTapCustomButton: PropTypes.func, // on tap custom button
@@ -46,16 +47,16 @@ export default class PhotoUpload extends React.Component {
   }
 
   openImagePicker = () => {
+    const { customPickerOption } = this.props;
     this.setState({buttonDisabled: true})
     if (this.props.onStart) this.props.onStart()
 
     // get image from image picker
-    ImagePicker.showImagePicker(this.options, async response => {
+    ImagePicker.showImagePicker({...this.options,...customPickerOption}, async response => {
       this.setState({buttonDisabled: false})
-      console.log('Response = ', response)
+      // console.log('Response = ', response)
       let rotation = 0 
       const {originalRotation} = response
-      
 
       if (this.props.onResponse) this.props.onResponse(response)
 
